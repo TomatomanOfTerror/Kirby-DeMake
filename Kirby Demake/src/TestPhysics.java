@@ -14,13 +14,13 @@ public class TestPhysics extends Application
         objects.getChildren().add(blue);
         
         red.setTranslateX(300);
-        red.setTranslateY(100);
+        red.setTranslateY(300);
         red.setWidth(50);
         red.setHeight(50);
         red.setFill(Color.TOMATO);
         
         blue.setTranslateX(300);
-        blue.setTranslateY(300);
+        blue.setTranslateY(500);
         blue.setWidth(50);
         blue.setHeight(50);
         blue.setFill(Color.BLUE);

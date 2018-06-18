@@ -69,8 +69,8 @@ public class Collisions
      */
     public static void MMCollision(MutablePhysicsObject a, MutablePhysicsObject b)
     {
-        double xVelocityFinal = (a.getMass() * a.getxVelocity() + b.getMass() * b.getxVelocity()) / (a.getMass() * b.getMass());
-        double yVelocityFinal = (a.getMass() * a.getyVelocity() + b.getMass() * b.getyVelocity()) / (a.getMass() * b.getMass());
+        double xVelocityFinal = (a.getMass() * a.getxVelocity() + b.getMass() * b.getxVelocity()) / (a.getMass() + b.getMass());
+        double yVelocityFinal = (a.getMass() * a.getyVelocity() + b.getMass() * b.getyVelocity()) / (a.getMass() + b.getMass());
         
         a.setxVelocity(xVelocityFinal);
         b.setxVelocity(xVelocityFinal);
