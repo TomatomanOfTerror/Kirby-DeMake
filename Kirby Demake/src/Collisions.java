@@ -62,6 +62,7 @@ public class Collisions
         }
     }
     
+    
     /*Collision resolution for two objects with mass
     uses perfectly inelastic collision to determine the outcome.
     that is, vi1*m1 + vi2*m2 = v*m1*m2
@@ -71,7 +72,6 @@ public class Collisions
     {
         double xVelocityFinal = (a.getMass() * a.getxVelocity() + b.getMass() * b.getxVelocity()) / (a.getMass() + b.getMass());
         double yVelocityFinal = (a.getMass() * a.getyVelocity() + b.getMass() * b.getyVelocity()) / (a.getMass() + b.getMass());
-        
         a.setxVelocity(xVelocityFinal);
         b.setxVelocity(xVelocityFinal);
         a.setyVelocity(yVelocityFinal);
@@ -80,7 +80,36 @@ public class Collisions
     
     public static void IMCollision(ImmutablePhysicsObject a, MutablePhysicsObject b)
     {
-    
+        //If mutable is not falling onto immutable, changes Yvelocity according to its gravity
+        //Physics doesn't change velocity based on gravity if there's a collision
+        if (!((b.getBoundsInParent().getMaxY() >= a.getBoundsInParent().getMinY()) && (b.getBoundsInParent().getMaxY() < a.getBoundsInParent().getMaxY())))
+        {
+            b.setyVelocity(b.getyVelocity() + b.getGravity());
+        }
+        //If mutable is falling onto immutable, sets Yvelocity to that of the immutable
+        else
+        {
+            b.setyVelocity(a.getyVelocity());
+        }
+        
+        //If mutable is going up into the Immutable, sets the yVelocity to that of the mutable
+        if (a.getBoundsInParent().intersects(b.getBoundsInParent().getMinX(),b.getBoundsInParent().getMinY(), b.getBoundsInParent().getWidth(), 5))
+        {
+            b.setyVelocity(a.getyVelocity());
+        }
+        
+        //If the mutable is crashing into the immutable from the side
+        if(a.getBoundsInParent().intersects(b.getBoundsInParent().getMaxX(), b.getBoundsInParent().getMaxY() - 2, 2, b.getBoundsInParent().getHeight() - 4))
+        {
+            b.setxVelocity(a.getxVelocity());
+        }
+        if (a.getBoundsInParent().intersects(b.getBoundsInParent().getMinX(), b.getBoundsInParent().getMaxY() - 2, 2, b.getBoundsInParent().getHeight() - 4))
+        {
+            b.setxVelocity(a.getxVelocity());
+        }
+        
+        
+        
     }
     
     public static void IICollision(ImmutablePhysicsObject a, ImmutablePhysicsObject b)

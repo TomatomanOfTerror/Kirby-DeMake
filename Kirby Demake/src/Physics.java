@@ -11,6 +11,7 @@ public class Physics extends AnimationTimer
         for (int i = 0; i < objects.size(); i++)
         {
             PhysicsObject object = objects.get(i);
+            boolean doesObjectCollide = false;
             
             //TODO Check for collisions, deal with collisions
             //Iterates through all objects
@@ -21,14 +22,15 @@ public class Physics extends AnimationTimer
                 {
                     if (checkCollide(object, objects.get(j)))
                     {
+                        doesObjectCollide = true;
                         Collisions.collisionResult(object, objects.get(j));
                     }
                 }
             }
             
             //TODO check if object is on ground
-            //If not on ground, increases downward velocity by gravity
-            if (true)
+            //If not colliding, increases downward velocity by gravity
+            if (!doesObjectCollide)
             {
                 object.setyVelocity(object.getyVelocity() + object.getGravity());
             }

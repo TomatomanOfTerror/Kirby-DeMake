@@ -7,26 +7,27 @@ public class TestPhysics extends Application
     public void start(Stage startStage)
     {
         Group objects = new Group();
-        MutablePhysicsObject red = new MutablePhysicsObject(4, 0.05);
-        MutablePhysicsObject blue = new MutablePhysicsObject(4, -0.05);
+        Kirby player = new Kirby();
+        ImmutablePhysicsObject blue = new ImmutablePhysicsObject(0);
         Scene scene = new Scene(objects);
-        objects.getChildren().add(red);
+        objects.getChildren().add(player);
+        player.activateControls(scene);
         objects.getChildren().add(blue);
         
-        red.setTranslateX(300);
-        red.setTranslateY(300);
-        red.setWidth(50);
-        red.setHeight(50);
-        red.setFill(Color.TOMATO);
+        player.setTranslateX(300);
+        player.setTranslateY(100);
+        player.setWidth(50);
+        player.setHeight(50);
+        player.setxVelocity(0);
         
         blue.setTranslateX(300);
-        blue.setTranslateY(500);
+        blue.setTranslateY(300);
         blue.setWidth(50);
         blue.setHeight(50);
         blue.setFill(Color.BLUE);
         
         Physics movement = new Physics();
-        movement.add(red);
+        movement.add(player);
         movement.add(blue);
         movement.start();
         
