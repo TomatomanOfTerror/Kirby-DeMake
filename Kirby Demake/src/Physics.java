@@ -5,6 +5,7 @@ public class Physics extends AnimationTimer
     //Puts all objects with physics into an arraylist to loop through them all in one go
     private ArrayList<PhysicsObject> objects = new ArrayList<>();
     
+    @Override
     public void handle(long now)
     {
         //Iterates through all objects to deal with their physics
@@ -41,17 +42,30 @@ public class Physics extends AnimationTimer
         }
     }
     
-    //Add or remove PhysicsObject from being rendered by Physics
+    /**
+     * Include PhysicsObject to be rendered by Physics
+     * @param object PhysicsObject to add to array
+     */
     public void add(PhysicsObject object)
     {
         objects.add(object);
     }
     
+    /**
+     * Remove PhysicsObject being rendered by Physics
+     * @param object PhysicsObject to remove from array
+     */
     public void remove(PhysicsObject object)
     {
         objects.remove(object);
     }
     
+    /**
+     * check collision of two PhysicsObjects
+     * @param a first PhysicsObject
+     * @param b second PhysicsObject
+     * @return true if collide, false otherwise
+     */
     public static boolean checkCollide(PhysicsObject a, PhysicsObject b)
     {
         if (a.getBoundsInParent().intersects(b.getBoundsInParent()))
