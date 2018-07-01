@@ -13,7 +13,8 @@ public class ImmutablePhysicsObject extends PhysicsObject
     
     /**
      * default constructor for ImmutablePhysicsObject
+     * Immutables mostly won't have gravity. Default constructor uses 0.
      */
     public ImmutablePhysicsObject()
-    {}
+    {super(0.0);}
 }

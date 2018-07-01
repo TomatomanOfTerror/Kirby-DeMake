@@ -74,4 +74,13 @@ public class Physics extends AnimationTimer
         else
             return false;
     }
+    
+    /**
+     * get list of objects Physics is moving
+     * @return arraylist of objects physics is moving
+     */
+    public ArrayList<PhysicsObject> getObjects()
+    {
+        return objects;
+    }
 }

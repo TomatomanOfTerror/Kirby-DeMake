@@ -1,6 +1,6 @@
 public class MutablePhysicsObject extends PhysicsObject
 {
-    private final double DEFAULTMASS = 10.0;
+    final double DEFAULTMASS = 10.0;
     
     private double mass;
     

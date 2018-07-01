@@ -9,16 +9,23 @@ public class TestPhysics extends Application
         Group objects = new Group();
         Kirby player = new Kirby();
         ImmutablePhysicsObject blue = new ImmutablePhysicsObject(0);
+        BadProjectile death = new BadProjectile();
         Scene scene = new Scene(objects);
-        objects.getChildren().add(player);
         player.activateControls(scene);
-        objects.getChildren().add(blue);
         
         player.setTranslateX(300);
         player.setTranslateY(100);
-        player.setWidth(50);
-        player.setHeight(50);
         player.setxVelocity(0);
+        
+        death.setWidth(50);
+        death.setHeight(25);
+        death.setTranslateX(100);
+        death.setTranslateY(250);
+        death.setxVelocity(1);
+        death.setFill(Color.BLACK);
+        death.setOpacity(1.0);
+        death.toFront();
+        
         
         blue.setTranslateX(300);
         blue.setTranslateY(300);
@@ -26,10 +33,11 @@ public class TestPhysics extends Application
         blue.setHeight(50);
         blue.setFill(Color.BLUE);
         
-        Physics movement = new Physics();
+        PhysicsObjectSet movement = new PhysicsObjectSet(scene, objects);
         movement.add(player);
         movement.add(blue);
-        movement.start();
+        movement.add(death);
+        movement.getEngine().start();
         
         startStage.setScene(scene);
         startStage.setTitle("TEST");

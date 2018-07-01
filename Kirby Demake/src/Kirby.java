@@ -1,7 +1,7 @@
 import javafx.scene.paint.Color;
 import javafx.scene.*;
 
-public class Kirby extends MutablePhysicsObject
+public class Kirby extends GoodCreature
 {
     private final int NORMALHEALTH = 5;
     private final int EASYHEALTH = 10;
@@ -25,24 +25,6 @@ public class Kirby extends MutablePhysicsObject
         setHeight(50);
         setWidth(50);
         setFill(Color.PINK);
-    }
-    
-    /**
-     *  get's kirby's remaining health
-     * @return health (int)
-     */
-    public int getHealth()
-    {
-        return health;
-    }
-    
-    /**
-     * sets Kirby's health to given parameter
-     * @param health new health for Kirby
-     */
-    public void setHealth(int health)
-    {
-        this.health = health;
     }
     
     /**
@@ -134,5 +116,24 @@ public class Kirby extends MutablePhysicsObject
                 case D: this.setxVelocity(0); break;
             }
         });
+        
+    }
+    
+    /**
+     * Paramaterless way to activate controls. Now as long as the player has been added to a
+     * PhysicsObjectSet, calling the activateControls method can find the scene this
+     * is in and do it, without requiring the user reference the scene themselves
+     */
+    public void activateControls()
+    {
+        activateControls(getSet().getScene());
+    }
+    
+    @Override
+    //Stuff will happen when Kirby dies
+    //TODO create scene of game over screen to overlay when kirby dies
+    public void die()
+    {
+        System.out.println("Ya got oof'd");
     }
 }

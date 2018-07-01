@@ -87,12 +87,23 @@ public class Collisions
      */
     public static void MMCollision(MutablePhysicsObject a, MutablePhysicsObject b)
     {
-        double xVelocityFinal = (a.getMass() * a.getxVelocity() + b.getMass() * b.getxVelocity()) / (a.getMass() + b.getMass());
-        double yVelocityFinal = (a.getMass() * a.getyVelocity() + b.getMass() * b.getyVelocity()) / (a.getMass() + b.getMass());
-        a.setxVelocity(xVelocityFinal);
-        b.setxVelocity(xVelocityFinal);
-        a.setyVelocity(yVelocityFinal);
-        b.setyVelocity(yVelocityFinal);
+        //If either object is a projectile, calls their collideAction, then exits the method
+        if (a instanceof Projectile)
+            ((Projectile) a).collideAction(b);
+        else if (b instanceof Projectile)
+            ((Projectile) b).collideAction(a);
+        else
+        {
+            //Determines collision velocity outcome
+            double xVelocityFinal = (a.getMass() * a.getxVelocity() + b.getMass() * b.getxVelocity()) / (a.getMass() + b.getMass());
+            double yVelocityFinal = (a.getMass() * a.getyVelocity() + b.getMass() * b.getyVelocity()) / (a.getMass() + b.getMass());
+            a.setxVelocity(xVelocityFinal);
+            b.setxVelocity(xVelocityFinal);
+            b.setyVelocity(yVelocityFinal);
+            a.setyVelocity(yVelocityFinal);
+        }
+        
+        
     }
     
     /**
@@ -103,17 +114,28 @@ public class Collisions
      */
     public static void IMCollision(ImmutablePhysicsObject a, MutablePhysicsObject b)
     {
+        //Ends the projectile immediately if the mutable is a projectile
+        if (b instanceof Projectile)
+        {
+            ((Projectile) b).collideWall();
+            return;
+        }
         
         //If mutable is not falling onto immutable, changes Yvelocity according to its gravity
         //Physics doesn't change velocity based on gravity if there's a collision
+        
         if (b.getBoundsInParent().getMaxY()-b.getyVelocity() > a.getBoundsInParent().getMinY()+1)
         {
             b.setyVelocity(b.getyVelocity() + b.getGravity());
         }
+        
+        
+        //if (!(b.getBoundsInParent().intersects(a.getBoundsInParent().getMinX()+ 2, a.getBoundsInParent().getMinY(), a.getBoundsInParent().getWidth() - 4, 4)))
+            //b.setyVelocity(b.getyVelocity() + b.getGravity());
         //If mutable is falling onto immutable, sets Yvelocity to that of the immutable
         else
         {
-        	if(b.getyVelocity()>=a.getyVelocity()) {
+        	if(b.getyVelocity()>= a.getyVelocity()) {
         		b.setyVelocity(a.getyVelocity());
         	}
         	else {
