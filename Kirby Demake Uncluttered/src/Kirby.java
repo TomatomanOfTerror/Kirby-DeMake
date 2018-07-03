@@ -1,5 +1,8 @@
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.application.Application;
 import javafx.scene.*;
+import javafx.scene.image.ImageView;
 
 public class Kirby extends GoodCreature
 {
@@ -11,20 +14,35 @@ public class Kirby extends GoodCreature
     private int health;
     private boolean isJumping;
     private int numJumps;
+    private Animator animate;
+    private ImageView defaultImg = new ImageView("kirby_idle.png");
+    
+    private Sequence test = new Sequence(new ImageView("kirby_walk_1.png"), new ImageView("kirby_walk_2.png"), new ImageView("kirby_walk_3.png"), new ImageView("kirby_walk_2.png"));
+    
+    private Group container;
     
     /**
      * Default Kirby constructor. Starts with <code>NORMALHEALTH</code> and
      * <code> isJumping</code> as true, with 50 pxl height and width
      */
-    public Kirby()
+    public Kirby(Group container)
     {
+    	this.container = container;
+    	
         health = NORMALHEALTH;
         isJumping = true;
         numJumps = 0;
         
+        
         setHeight(50);
         setWidth(50);
-        setFill(Color.PINK);
+        
+        
+        
+        animate = new Animator(this, defaultImg);
+        
+        container.getChildren().add(animate);
+        setFill(Color.TRANSPARENT);
     }
     
     /**
@@ -88,6 +106,11 @@ public class Kirby extends GoodCreature
         this.setxVelocity(2.5);
     }
     
+    public void stand()
+    {
+    	this.setxVelocity(0);
+    	
+    }
     /**
      * primes the scene to allow the player to control kirby
      * @param scene Scene that game is on
@@ -103,7 +126,7 @@ public class Kirby extends GoodCreature
                 case LEFT:
                 case A: moveLeft(); break;
                 case RIGHT:
-                case D: moveRight(); break;
+                case D: animate.play(test); moveRight(); break;
             }
         });
         scene.setOnKeyReleased(e ->
@@ -113,7 +136,7 @@ public class Kirby extends GoodCreature
                 case LEFT:
                 case A:
                 case RIGHT:
-                case D: this.setxVelocity(0); break;
+                case D: stand(); animate.stop(); break;
             }
         });
         
@@ -136,4 +159,5 @@ public class Kirby extends GoodCreature
     {
         System.out.println("Ya got oof'd");
     }
+   
 }
