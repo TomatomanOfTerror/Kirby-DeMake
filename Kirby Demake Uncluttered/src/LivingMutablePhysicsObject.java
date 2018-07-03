@@ -1,7 +1,8 @@
 //Anything that has health that it can lose and will die/enter a new state upon losing all of it.
 public abstract class LivingMutablePhysicsObject extends MutablePhysicsObject
 {
-    private int health;
+	
+	private int health;
     private int maxHealth;
     
     /**

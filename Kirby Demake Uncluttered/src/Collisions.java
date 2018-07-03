@@ -124,7 +124,7 @@ public class Collisions
         //If mutable is not falling onto immutable, changes Yvelocity according to its gravity
         //Physics doesn't change velocity based on gravity if there's a collision
         
-        if (b.getBoundsInParent().getMaxY()-b.getyVelocity() > a.getBoundsInParent().getMinY()+1)
+        if (b.getBoundsInParent().getMaxY()-b.getyVelocity() > a.getBoundsInParent().getMinY())
         {
             b.setyVelocity(b.getyVelocity() + b.getGravity());
         }
@@ -136,6 +136,8 @@ public class Collisions
         else
         {
         	if(b.getyVelocity()>= a.getyVelocity()) {
+        		//sets position to stop colliding then clipping through
+        		b.setTranslateY(a.getTranslateY()-b.getHeight());
         		b.setyVelocity(a.getyVelocity());
         	}
         	else {

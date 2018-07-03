@@ -7,7 +7,8 @@ public class TestPhysics extends Application
     public void start(Stage startStage)
     {
         Group objects = new Group();
-        Kirby player = new Kirby();
+        Kirby player = new Kirby(objects);
+        
         ImmutablePhysicsObject blue = new ImmutablePhysicsObject(0);
         BadProjectile death = new BadProjectile();
         Scene scene = new Scene(objects);
