@@ -28,6 +28,18 @@ public class PhysicsObjectSet
     }
     
     /**
+     * Adds the player to the Physics and group and also gives the Physics reference to it
+     * @param toAdd Kirvy object to be added
+     */
+    public void add(Kirby toAdd)
+    {
+        engine.setPlayer(toAdd);
+        engine.add(toAdd);
+        group.getChildren().add(toAdd);
+        toAdd.setSet(this);
+    }
+    
+    /**
      * removes the given object from the physics and the group, and hides it
      * @param toRemove object to be removed
      */
